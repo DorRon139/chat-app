@@ -1,8 +1,9 @@
 import "./message.css";
 
-type MessageProps = {
-  own: boolean;
-};
+interface MessageProps {
+  own?: boolean;
+  text: string;
+}
 
 const Message = (props: MessageProps) => {
   return (
@@ -13,7 +14,7 @@ const Message = (props: MessageProps) => {
           src="https://images.pexels.com/photos/4236828/pexels-photo-4236828.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
           alt=""
         />
-        <span className="messageText">Hello this a message</span>
+        <span className="messageText">{props.text}</span>
       </div>
       <div className="messageBottom">1 hour ago</div>
     </div>

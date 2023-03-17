@@ -1,6 +1,10 @@
 import "./chatOnline.css";
 
-const ChatOnline = () => {
+interface chatOnlineProps {
+  name: string;
+}
+
+const ChatOnline = ({ name }: chatOnlineProps) => {
   return (
     <div className="chatOnline">
       <div className="chatOnlineFriend">
@@ -12,7 +16,7 @@ const ChatOnline = () => {
           />
           <div className="chatOnlineBadge"></div>
         </div>
-        <span className="chatOnlineName">John Doe</span>
+        <span className="chatOnlineName">{name}</span>
       </div>
     </div>
   );
