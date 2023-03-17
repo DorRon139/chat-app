@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Socket } from "socket.io-client";
+import { RootState } from "../app/store";
+import { addSocketId } from "../app/user/user.slice";
 import ChatBox from "../components/chatBox/ChatBox";
 import ChatOnline from "../components/chatOnline/ChatOnline";
 import Conversations from "../components/conversations/Conversations";
@@ -41,11 +44,10 @@ interface messageProps {
 
 const Messanger = (props: messageProps) => {
   const { socket } = props;
+  const dispatch = useDispatch();
+  const currentUser = useSelector((state: RootState) => state.user.currentUser);
   const [isConnected, setIsConnected] = useState(socket.connected);
   const [onlineUsers, setOnlineUsers] = useState([]);
-  const [currentUser, setCurrentUser] = useState<userInterface>(
-    USERS_DUMMY_DATA[Math.floor(Math.random() * 4)]
-  ); // TODO: redux
 
   useEffect(() => {
     socket.on("connect", () => {
@@ -54,7 +56,7 @@ const Messanger = (props: messageProps) => {
     });
 
     socket.on("update_user_socketId", async (socketID) => {
-      await setCurrentUser((user) => ({ ...user, socketID }));
+      await dispatch(addSocketId(socketID));
     });
 
     socket.on("users_online", (users) => {
