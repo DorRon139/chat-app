@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Socket } from "socket.io-client";
-import { userInterface } from "../../pages/Messanger";
+import { userInterface } from "../../pages/messanger/Messanger";
 import Message from "../message/Message";
 import "./chatBox.css";
 

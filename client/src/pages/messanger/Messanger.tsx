@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Socket } from "socket.io-client";
-import { RootState } from "../app/store";
-import { addSocketId } from "../app/user/user.slice";
-import ChatBox from "../components/chatBox/ChatBox";
-import ChatOnline from "../components/chatOnline/ChatOnline";
-import Conversations from "../components/conversations/Conversations";
+import { RootState } from "../../app/store";
+import { addSocketId } from "../../app/user/user.slice";
+import ChatBox from "../../components/chatBox/ChatBox";
+import ChatOnline from "../../components/chatOnline/ChatOnline";
+import Conversations from "../../components/conversations/Conversations";
 import "./messanger.css";
 
 export interface userInterface {
