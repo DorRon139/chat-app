@@ -1,5 +1,6 @@
 import { useState } from "react";
 import InputField from "../../components/shared/InputField";
+import { apiRequest } from "../../utils/api-request";
 import "./login.css";
 
 const Login = () => {
@@ -13,9 +14,12 @@ const Login = () => {
     setInput({ ...input, [name]: value });
   };
 
-  const onSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(input);
+    const res = await apiRequest("login", {
+      ...input,
+    });
+    console.log(res);
   };
 
   return (
