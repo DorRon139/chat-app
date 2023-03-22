@@ -1,0 +1,43 @@
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+    color: #eee;
+    background-color: #29335c;
+    box-shadow: 0 2px 4px -1px rgba(0,0,0,0.25);
+
+    padding: 6px;
+    height: 5vh;
+}
+
+.navbar.he {
+    flex-direction: row-reverse;
+}
+
+.navbar-logo {
+    height: 4.7vh;
+}
+
+a {
+    text-decoration: none;
+    border-radius: 4px;
+    padding: 6px 10px;
+    margin-right: 10px;
+    font-weight: 600;
+}
+
+a.active {
+    color: #fff;
+    background: #e2680a;
+}
+a.inactive {
+    font-style: italic;
+}
+
+.navbar-login {
+    display: flex;
+}
+.navbar-language-icon {
+    height: 4.5vh;
+}

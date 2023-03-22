@@ -1,4 +1,12 @@
 type TLanguage = {
+    navbar:{
+        messanger: string,
+        profile: string,
+        friends: string,
+        myPhotos: string,
+        login: string,
+        logout: string,
+    },
     login: {
         username: string,
         password: string,
@@ -21,6 +29,14 @@ interface ITexts {
 }
 const TEXTS: ITexts={
     en: {
+        navbar:{
+            messanger: 'Messanger',
+            profile: 'Profile',
+            friends: 'Friends',
+            myPhotos: 'My Photos',
+            login: 'Login',
+            logout: 'Logout',
+        },
         login: {
             username: 'User Name',
             password: 'Password',
@@ -38,6 +54,14 @@ const TEXTS: ITexts={
         }
     },
     he: {
+        navbar:{
+            messanger: 'צ׳אט',
+            profile: 'איזור אישי',
+            friends: 'חברים',
+            myPhotos: 'התמונות שלי',
+            login: 'התחבר',
+            logout: 'התנתק',
+        },
         login: {
             username: 'שם משתמש',
             password: 'סיסמה',
