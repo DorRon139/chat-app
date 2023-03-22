@@ -1,3 +1,4 @@
+
 .input-group {
     margin-top: 20px;
     padding: 0 30px;
@@ -12,6 +13,10 @@ input {
     background: transparent;
     border-bottom: 1px solid #757575;
     padding: 10px 0;
+}
+
+input.he {
+    direction: rtl;
 }
 
 input:focus {
@@ -29,6 +34,11 @@ label {
     transition: 0.2s ease all;
     -moz-transition: 0.2s ease all;
     -webkit-transition: 0.2s ease all;
+}
+
+label.he{
+    left: auto;
+    right: 30px;
 }
 
 input:focus ~ label,

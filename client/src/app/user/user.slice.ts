@@ -3,15 +3,19 @@ import { createSlice } from '@reduxjs/toolkit'
 
 export interface userInterface {
     _id: string;
+    username: string;
+    email: string;
+    password: string;
     socketID?: string;
-    name: string;
     friends: string[];
   }
 
 const initialState = {
     currentUser: <userInterface>{
         _id: "1234",
-        name: "Dor Ron",
+        username: "Dor Ron",
+        email: "dor@ron.gmail.com",
+        password: "123",
         friends: ["5678", "4321", "1243"],
       },
 }

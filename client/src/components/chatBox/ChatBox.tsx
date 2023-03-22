@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { Socket } from "socket.io-client";
-import { userInterface } from "../../pages/messanger/Messanger";
+import { RootState } from "../../app/store";
 import Message from "../message/Message";
 import "./chatBox.css";
 
 interface chatBoxProps {
   socket: Socket;
-  user: userInterface; // TODO: redux
 }
 
 interface messageInterface {
@@ -16,7 +16,8 @@ interface messageInterface {
   userId: string;
 }
 
-const ChatBox = ({ socket, user }: chatBoxProps) => {
+const ChatBox = ({ socket }: chatBoxProps) => {
+  const currentUser = useSelector((state: RootState) => state.user.currentUser);
   const [messages, setMessages] = useState<Array<messageInterface>>([]);
   const [value, setValue] = useState("");
 
@@ -25,7 +26,7 @@ const ChatBox = ({ socket, user }: chatBoxProps) => {
   };
   const sendMessageHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    socket.emit("send_message", { userId: user._id, value });
+    socket.emit("send_message", { userId: currentUser._id, value });
     setValue("");
     console.log("Sending a message");
   };
@@ -39,14 +40,14 @@ const ChatBox = ({ socket, user }: chatBoxProps) => {
     return () => {
       socket.off("send_message_to_client");
     };
-  }, [socket, user]);
+  }, [socket, currentUser]);
 
   return (
     <div className="chatBox">
       <div className="chatBoxWrapper">
         <div className="chatBoxTop">
           {messages.map((message: messageInterface) => {
-            return message.userId === user._id ? (
+            return message.userId === currentUser._id ? (
               <Message key={message._id} own={true} text={message.value} />
             ) : (
               <Message key={message._id} own={false} text={message.value} />
