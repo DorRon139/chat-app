@@ -30,7 +30,7 @@ const Navigation = () => {
     <>
       <nav className={`navbar`}>
         <img className="navbar-logo" src={logo} alt="chat-app" />
-        <div className={`navbar ${lang === "he" ? "he" : ""}`}>
+        <div className={`navbar-actions ${lang === "he" ? "he" : ""}`}>
           <div className="navbar-application">
             <NavLink style={linkStyles} to="/" onClick={isDisable}>
               {TEXTS[lang].navbar.messanger}
@@ -49,12 +49,15 @@ const Navigation = () => {
             {TEXTS[lang].navbar.login}
           </NavLink>
         </div>
-        <img
-          className="navbar-language-icon"
-          onClick={onChangeLanguage}
-          src={lang === "en" ? israelFlag : usFlag}
-          alt={lang === "en" ? "Hebrew" : "English"}
-        />
+        <div className="language-div">
+          <span>Language</span>
+          <img
+            className="navbar-language-icon"
+            onClick={onChangeLanguage}
+            src={lang === "en" ? israelFlag : usFlag}
+            alt={lang === "en" ? "Hebrew" : "English"}
+          />
+        </div>
       </nav>
       <Outlet />
     </>
