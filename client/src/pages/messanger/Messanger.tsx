@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
 import { Socket } from "socket.io-client";
 import { RootState } from "../../app/store";
 import { addSocketId, userInterface } from "../../app/user/user.slice";
@@ -73,6 +74,10 @@ const Messanger = (props: messageProps) => {
       socket.off("disconnect");
     };
   }, []);
+
+  if (!currentUser) {
+    return <Navigate to="/login" />;
+  }
 
   return (
     <>

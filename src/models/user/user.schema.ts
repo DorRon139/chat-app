@@ -19,7 +19,7 @@ const userSchema = new Schema<userInterface>({
         type: String
     },
     friends: {
-        type: [String],
+        type: [String], //  ref to users
         default: []
     }
 })

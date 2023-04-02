@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
 import { Socket } from "socket.io-client";
 import { RootState } from "../../app/store";
+import Login from "../../pages/login/Login";
 import Message from "../message/Message";
 import "./chatBox.css";
 
@@ -21,16 +23,6 @@ const ChatBox = ({ socket }: chatBoxProps) => {
   const [messages, setMessages] = useState<Array<messageInterface>>([]);
   const [value, setValue] = useState("");
 
-  const onChangeHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setValue(e.target.value);
-  };
-  const sendMessageHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    socket.emit("send_message", { userId: currentUser._id, value });
-    setValue("");
-    console.log("Sending a message");
-  };
-
   useEffect(() => {
     const newMessageHandler = async (newMessage: messageInterface) => {
       await setMessages((oldMessages) => [...oldMessages, newMessage]);
@@ -41,6 +33,20 @@ const ChatBox = ({ socket }: chatBoxProps) => {
       socket.off("send_message_to_client");
     };
   }, [socket, currentUser]);
+
+  if (!currentUser) {
+    return <Navigate to={"/login"} />;
+  }
+
+  const onChangeHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setValue(e.target.value);
+  };
+  const sendMessageHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    socket.emit("send_message", { userId: currentUser._id, value });
+    setValue("");
+    console.log("Sending a message");
+  };
 
   return (
     <div className="chatBox">

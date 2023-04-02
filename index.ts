@@ -24,7 +24,7 @@ const initializeDb = async (mongoUrl: string) => {
         await connect(mongoUrl)
         console.info('Connected to db')
     } catch (error) {
-        console.error('db connection failed')
+        console.error('db connection failed', error)
     }
 }
 

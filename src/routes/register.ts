@@ -1,6 +1,9 @@
 import { Request, Response } from 'express';
 import * as Joi from 'joi'
 import User from '../models/user/user.schema'
+import { hashPassword } from '../utils/bcrypt';
+import { generateAuthToken } from '../utils/jsonwebtoken';
+import login from './login';
 
 
 const joiSchema = Joi.object({
@@ -21,18 +24,29 @@ const register = async (req: Request, res: Response) => {
             email,
             password
         } = body
-        console.info('Saving user to the db', username)
 
+        console.info('Saving user to the db', username)
+        const hashedPasswarod = hashPassword(password)
         const newUser = await new User({
             username,
             email,
-            password
+            password: hashedPasswarod
         }).save()
 
         if(!newUser) throw new Error('cannot save user to db')
-        console.info('user saved successfuly')
-        res.status(200).send({
-            success: true,
+        console.info('user saved successfuly, loggin in')
+
+        const tokenPayload = {
+            ...newUser
+        }
+
+        const accessToken = await generateAuthToken(tokenPayload)
+
+        console.info(`${username} is connected`)
+        return res.send({
+            status: true,
+            message: 'User logged in',
+            token: accessToken
         })
     } catch (error: unknown) {
         console.error(`Error with route login - ${error}`)

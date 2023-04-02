@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-
+import jwt_decode, { JwtPayload } from 'jwt-decode'
 
 export interface userInterface {
     _id: string;
@@ -10,31 +10,58 @@ export interface userInterface {
     friends: string[];
   }
 
-const initialState = {
-    currentUser: <userInterface>{
-        _id: "1234",
-        username: "Dor Ron",
-        email: "dor@ron.gmail.com",
-        password: "123",
-        friends: ["5678", "4321", "1243"],
-      },
+type decodedJwt = JwtPayload & userInterface
+
+type initialStateType = {
+token: string | null,
+currentUser: userInterface | null
+}
+
+const initialState: initialStateType = {
+    token: localStorage.getItem('token') || null,
+    currentUser: null,
 }
 
 const userSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {
-        login: (state, action) => {
+        setToken: (state, action) => {
+            state.token = action.payload
+            if(action.payload){
+                const user = jwt_decode<decodedJwt>(action.payload || '') || null
+                const {
+                    _id,
+                    username,
+                    email,
+                    password,
+                    socketID,
+                    friends,
+                } = user
+                state.currentUser = {
+                    _id,
+                    username,
+                    email,
+                    password,
+                    socketID,
+                    friends,
+                }
+            }
+        },
+        setCurrentUser: (state, action) => {
             state.currentUser = action.payload
         },
         addSocketId: (state, action) => {
-            state.currentUser.socketID = action.payload
+            if(state.currentUser){
+                state.currentUser.socketID = action.payload
+            }
         }
-    }
+    },
 })
 
 export const {
-    login,
+    setToken,
+    setCurrentUser,
     addSocketId
 } = userSlice.actions
 export default userSlice.reducer
