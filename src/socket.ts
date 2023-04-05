@@ -2,7 +2,7 @@ import { Server as HTTPServer } from 'http'
 import { Socket, Server } from 'socket.io'
 import { v4 } from 'uuid'
 
-interface userInterface {
+interface Iuser {
     _id: string;
     socketID?: string;
     name: string;
@@ -13,7 +13,7 @@ export class ServerSocket {
     public static instance: ServerSocket
     public io: Server
 
-    public users: userInterface[]
+    public users: Iuser[]
 
     constructor(server: HTTPServer) {
         ServerSocket.instance = this

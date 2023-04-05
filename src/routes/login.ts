@@ -21,13 +21,15 @@ const login = async (req: Request, res: Response) => {
         } = body
         console.info('Try to login user', username)
 
-        const user = await User.findOne({ username: username }).exec()
+        const user = await User.findOne({ username: username })
 
         if(!user) throw new Error('The username or the password is wrong')
         if(!comparePassword(password, user.password)) throw new Error('The username or the password is wrong')
 
         const tokenPayload = {
-            ...user.toObject()
+            ...user.toObject(),
+            // frinds: user.populate('friends')
+          
         }
 
         const accessToken = await generateAuthToken(tokenPayload)

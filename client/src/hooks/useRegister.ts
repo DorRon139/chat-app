@@ -1,7 +1,7 @@
 import { useMutation } from "react-query";
 import { useDispatch } from "react-redux";
 import { apiRequest } from "../utils/api-request";
-import { setToken, userInterface } from '../app/user/user.slice'
+import { setToken, Iuser } from '../app/user/user.slice'
 
 type registerInfo = {
     username: string,

@@ -7,7 +7,8 @@ import { ServerSocket } from './src/socket';
 
 import {
     login,
-    register
+    register,
+    getFriendsById
 } from './src/routes'
 const {
     PORT,
@@ -45,6 +46,7 @@ app.get('/health', (req: Request, res: Response) => {
 
 app.post('/login', login)
 app.post('/register', register)
+app.post('/getFriendsById', getFriendsById)
 
 initializeDb(MONGO_ATLAS_URL)
 

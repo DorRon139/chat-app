@@ -1,7 +1,7 @@
 import { Schema, model} from "mongoose";
-import { userInterface } from "./userInterface";
+import { Iuser } from "./user.interface";
 
-const userSchema = new Schema<userInterface>({
+const userSchema = new Schema<Iuser>({
     username: {
         type: String,
         required: true,
@@ -19,10 +19,15 @@ const userSchema = new Schema<userInterface>({
         type: String
     },
     friends: {
-        type: [String], //  ref to users
-        default: []
+        type: [Schema.Types.ObjectId], //  ref to users
+        default: [],
+        ref: "User"
+    },
+    isOnline: {
+        type: Boolean,
+        default: false
     }
 })
 
-const User = model<userInterface>('User', userSchema)
+const User = model<Iuser>('User', userSchema)
 export default User
